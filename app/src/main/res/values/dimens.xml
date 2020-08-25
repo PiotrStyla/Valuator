@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="margin_bottom_cam_image" type="dimen">20%</item>
+    <dimen name="margin_bottom1">200</dimen>
+    <dimen name="margin_bottom2">150dp</dimen>
+    <dimen name="margin_bottom3">175dp</dimen>
+</resources>
