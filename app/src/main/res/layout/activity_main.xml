@@ -36,20 +36,20 @@
         app:layout_constraintTop_toBottomOf="@+id/cameraImage" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_settings"
         android:background="@color/colorButtonBackground"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="19dp"
         android:layout_marginBottom="16dp"
-        android:text="Button"
+        android:text="SETTINGS"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/take_a_photo_button" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/button_history"
         android:background="@color/colorButtonBackground"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
