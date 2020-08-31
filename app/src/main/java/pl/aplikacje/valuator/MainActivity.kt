@@ -15,8 +15,13 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_main.*
-import pl.aplikacje.valuator.Network.GetDataService
-import pl.aplikacje.valuator.Network.RetrofitClientInstance
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.asRequestBody
+import pl.aplikacje.valuator.model.CarnetDetectResponse
+import pl.aplikacje.valuator.network.NetworkUtils
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -80,17 +85,56 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val savedUri = Uri.fromFile(photoFile)
-                    val msg = "Photo capture succeeded: $savedUri"
-                    val msg1 = "$savedUri"
-                    Toast.makeText(baseContext, msg, Toast.LENGTH_LONG).show()
-                    Log.d(TAG, msg)
-                    val service: GetDataService =
-                        RetrofitClientInstance.getRetrofitInstance().create<GetDataService>(
-                            GetDataService::class.java
-                        )
-
+                    Log.d("onImageSaved", "Photo capture succeeded: $savedUri")
+                    uploadImage(savedUri)
                 }
             })
+    }
+
+    private fun uploadImage(imageUri: Uri) {
+        val file = File(imageUri.path)
+
+        // create RequestBody instance from file
+        val requestFile = file.asRequestBody("image/*".toMediaType())
+
+        val parameters = mutableMapOf(
+            "box_min_width" to "180",
+            "box_min_height" to "180",
+            "box_min_ratio" to "1",
+            "box_max_ratio" to "3.15",
+            "box_select" to "center",
+            "region" to "DEF"
+        )
+
+        val call = NetworkUtils.uploadService.upload(parameters.toMap(), requestFile)
+        camera_capture_button.isEnabled = false
+
+        showToast("Loading...")
+        call.enqueue(object : Callback<CarnetDetectResponse> {
+            override fun onResponse(
+                call: Call<CarnetDetectResponse>,
+                response: Response<CarnetDetectResponse>
+            ) {
+                camera_capture_button.isEnabled = true
+
+                response.body()?.detections?.firstOrNull()?.let {
+                    Log.d("detections:", it.mmg.first().modelName)
+                    showToast("Success, Model Name: ${it.mmg.first().modelName}")
+                }?: run {
+                    showToast("Success, No detections found!")
+                }
+            }
+
+            override fun onFailure(call: Call<CarnetDetectResponse>, throwable: Throwable?) {
+                camera_capture_button.isEnabled = true
+                Log.d("failure:", throwable.toString())
+                showToast("failure: ${throwable.toString()}")
+            }
+        })
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun startCamera() {
@@ -137,7 +181,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun getOutputDirectory(): File {
         val mediaDir = externalMediaDirs.firstOrNull()?.let {
-            File(it, resources.getString(R.string.app_name)).apply { mkdirs() } }
+            File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
+        }
         return if (mediaDir != null && mediaDir.exists())
             mediaDir else filesDir
     }
