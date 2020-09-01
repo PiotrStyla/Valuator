@@ -1,6 +1,8 @@
 package pl.aplikacje.valuator
 
 import android.Manifest
+import android.app.SearchManager
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -119,7 +121,12 @@ class MainActivity : AppCompatActivity() {
 
                 response.body()?.detections?.firstOrNull()?.let {
                     Log.d("detections:", it.mmg.first().modelName)
-                    showToast("Success, Model Name: ${it.mmg.first().modelName}")
+                    showToast("Sukces, Model: ${it.mmg.first().modelName}, Marka:${it.mmg.first().makeName}, Rok: ${it.mmg.first().years}")
+                    //Web Search in new intent
+                    val intent = Intent(Intent.ACTION_WEB_SEARCH)
+                    val term = "otomoto/osobowe/  ${it.mmg.first().makeName}/ ${it.mmg.first().modelName}/ od ${it.mmg.first().years}"
+                    intent.putExtra(SearchManager.QUERY, term)
+                    startActivity(intent)
                 }?: run {
                     showToast("Success, No detections found!")
                 }
