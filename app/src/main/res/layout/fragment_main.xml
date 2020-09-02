@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainFragment"
+    android:id="@+id/parentLayout">
+
+    <androidx.camera.view.PreviewView
+        android:id="@+id/viewFinder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="@dimen/margin_bottom3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <Button
+        android:id="@+id/camera_capture_button"
+        android:background="@color/colorButtonBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:text="Take a photo"
+        app:layout_constraintEnd_toEndOf="@id/parentLayout"
+        app:layout_constraintStart_toStartOf="@id/parentLayout"
+        app:layout_constraintTop_toBottomOf="@id/viewFinder"
+        android:elevation="2dp"/>
+
+    <Button
+        android:id="@+id/button_settings"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="@color/colorButtonBackground"
+        android:elevation="2dp"
+        android:text="SETTINGS"
+        app:layout_constraintBottom_toBottomOf="@id/parentLayout"
+        app:layout_constraintStart_toStartOf="@id/parentLayout"
+        app:layout_constraintTop_toBottomOf="@+id/camera_capture_button" />
+
+    <Button
+        android:id="@+id/button_history"
+        android:background="@color/colorButtonBackground"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="HISTORY"
+        app:layout_constraintBottom_toBottomOf="@id/parentLayout"
+        app:layout_constraintEnd_toEndOf="@id/parentLayout"
+        app:layout_constraintTop_toBottomOf="@+id/camera_capture_button"
+        android:elevation="2dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

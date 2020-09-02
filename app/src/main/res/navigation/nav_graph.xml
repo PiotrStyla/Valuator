@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="pl.aplikacje.valuator.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="pl.aplikacje.valuator.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_historyFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_historyFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="pl.aplikacje.valuator.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/valuePageFragment"
+        android:name="pl.aplikacje.valuator.ValuePageFragment"
+        android:label="fragment_value_page"
+        tools:layout="@layout/fragment_value_page" >
+        <action
+            android:id="@+id/action_valuePageFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_valuePageFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_valuePageFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+</navigation>

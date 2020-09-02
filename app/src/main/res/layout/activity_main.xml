@@ -8,75 +8,20 @@
     android:background="@color/colorBackground"
     tools:context=".MainActivity">
 
-    <androidx.camera.view.PreviewView
-        android:id="@+id/viewFinder"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="@dimen/margin_bottom3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-
-<!--    <ImageView-->
-<!--        android:id="@+id/cameraImage"-->
-<!--        android:background="@color/colorCamerImageBackground"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:layout_marginEnd="16dp"-->
-<!--        android:layout_marginBottom="@dimen/margin_bottom3"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-    <Button
-        android:id="@+id/camera_capture_button"
-        android:background="@color/colorButtonBackground"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:text="Take a photo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewFinder"
-        android:elevation="2dp"/>
-
-    <Button
-        android:id="@+id/button_settings"
-        android:background="@color/colorButtonBackground"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginBottom="16dp"
-        android:text="SETTINGS"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/camera_capture_button"
-        android:elevation="2dp"/>
 
-    <Button
-        android:id="@+id/button_history"
-        android:background="@color/colorButtonBackground"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="HISTORY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/camera_capture_button"
-        android:elevation="2dp"/>
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
