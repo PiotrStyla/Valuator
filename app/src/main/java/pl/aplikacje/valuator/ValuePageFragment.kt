@@ -8,9 +8,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import pl.aplikacje.valuator.databinding.FragmentSettingsBinding
+import pl.aplikacje.valuator.databinding.FragmentValuePageBinding
 
 
 class ValuePageFragment : Fragment(), View.OnClickListener {
+    private var _binding: FragmentValuePageBinding? = null
+    private val binding get() = _binding!!
 
     lateinit var navController: NavController
 
@@ -19,6 +23,7 @@ class ValuePageFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _binding = FragmentValuePageBinding.inflate(inflater,container,false)
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_value_page, container, false)
     }
@@ -26,9 +31,9 @@ class ValuePageFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
-        view.findViewById<Button>(R.id.button_settings).setOnClickListener(this)
-        view.findViewById<Button>(R.id.camera_new_capture_button).setOnClickListener(this)
-        view.findViewById<Button>(R.id.button_history).setOnClickListener(this)
+        binding.buttonSettings.setOnClickListener(this)
+        binding.cameraNewCaptureButton.setOnClickListener(this)
+        binding.buttonHistory.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -38,5 +43,9 @@ class ValuePageFragment : Fragment(), View.OnClickListener {
             R.id.button_history-> navController!!.navigate(R.id.action_valuePageFragment_to_historyFragment)
 
         }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
