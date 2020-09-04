@@ -2,6 +2,7 @@ package pl.aplikacje.valuator
 
 import android.Manifest
 import android.app.SearchManager
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -14,10 +15,12 @@ import android.widget.Button
 import android.widget.Toast
 import android.widget.Toast.makeText
 import androidx.camera.core.CameraSelector
+import androidx.camera.core.CameraXThreads.TAG
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.constraintlayout.widget.Constraints.TAG
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -27,6 +30,7 @@ import kotlinx.android.synthetic.main.fragment_main.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.asRequestBody
 import pl.aplikacje.valuator.MainFragment.Companion.REQUIRED_PERMISSIONS
+import pl.aplikacje.valuator.MainFragment.Companion.TAG
 import pl.aplikacje.valuator.model.CarnetDetectResponse
 import pl.aplikacje.valuator.network.NetworkUtils
 import retrofit2.Call
@@ -64,7 +68,7 @@ class MainFragment : Fragment(), View.OnClickListener {
             startCamera()
         } else {
             ActivityCompat.requestPermissions(
-                this, MainActivity.REQUIRED_PERMISSIONS, MainActivity.REQUEST_CODE_PERMISSIONS
+                this, MainFragment.REQUIRED_PERMISSIONS, MainFragment.REQUEST_CODE_PERMISSIONS
             )
         }
 
@@ -109,7 +113,7 @@ class MainFragment : Fragment(), View.OnClickListener {
         val photoFile = File(
             outputDirectory,
             SimpleDateFormat(
-                MainActivity.FILENAME_FORMAT, Locale.US
+                MainFragment.FILENAME_FORMAT, Locale.US
             ).format(System.currentTimeMillis()) + ".jpg"
         )
 
@@ -123,7 +127,7 @@ class MainFragment : Fragment(), View.OnClickListener {
             ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onError(exc: ImageCaptureException) {
-                    Log.e(MainActivity.TAG, "Photo capture failed: ${exc.message}", exc)
+                    Log.e(MainFragment.TAG, "Photo capture failed: ${exc.message}", exc)
                 }
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
@@ -215,13 +219,13 @@ class MainFragment : Fragment(), View.OnClickListener {
                 )
 
             } catch (exc: Exception) {
-                Log.e(MainActivity.TAG, "Use case binding failed", exc)
+                Log.e(MainFragment.TAG, "Use case binding failed", exc)
             }
 
         }, ContextCompat.getMainExecutor(this))
     }
 
-    private fun allPermissionsGranted() = MainActivity.REQUIRED_PERMISSIONS.all {
+    private fun allPermissionsGranted() = MainFragment.REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(
             baseContext, it
         ) == PackageManager.PERMISSION_GRANTED
