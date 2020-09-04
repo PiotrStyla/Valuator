@@ -72,6 +72,8 @@ class MainFragment : Fragment(), View.OnClickListener {
         _binding = null
     }
 
+
+
     private fun takePhoto() {
         // Get a stable reference of the modifiable image capture use case
         val imageCapture = imageCapture ?: return
