@@ -37,6 +37,8 @@ import java.util.concurrent.Executors
 import pl.aplikacje.valuator.databinding.FragmentMainBinding as FragmentMainBinding1
 
 
+
+
 class MainFragment : Fragment(), View.OnClickListener {
     private var _binding : FragmentMainBinding1? = null
             private val binding get() = _binding!!
@@ -117,10 +119,10 @@ class MainFragment : Fragment(), View.OnClickListener {
         // been taken
         imageCapture.takePicture(
             outputOptions,
-            ContextCompat.getMainExecutor(this),
+            ContextCompat.getMainExecutor(context),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onError(exc: ImageCaptureException) {
-                    Log.e(MainFragment.TAG, "Photo capture failed: ${exc.message}", exc)
+                    Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
                 }
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
@@ -179,7 +181,7 @@ class MainFragment : Fragment(), View.OnClickListener {
     }
 
     private fun showToast(message: String) {
-        Toast.makeText(this@MainFragment, message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun startCamera() {
@@ -215,7 +217,7 @@ class MainFragment : Fragment(), View.OnClickListener {
                 Log.e(MainFragment.TAG, "Use case binding failed", exc)
             }
 
-        }, ContextCompat.getMainExecutor(this))
+        }, ContextCompat.getMainExecutor(context))
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
@@ -253,11 +255,11 @@ class MainFragment : Fragment(), View.OnClickListener {
                 startCamera()
             } else {
                 Toast.makeText(
-                    this,
+                    context,
                     "Permissions not granted by the user.",
                     Toast.LENGTH_SHORT
                 ).show()
-                finish()
+                    onStop()  // finish()
             }
         }
     }
