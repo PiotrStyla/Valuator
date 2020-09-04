@@ -11,8 +11,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import android.widget.Toast.makeText
+import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -34,6 +37,7 @@ import pl.aplikacje.valuator.databinding.FragmentMainBinding as FragmentMainBind
 class MainFragment : Fragment(), View.OnClickListener {
     private var _binding : FragmentMainBinding1? = null
             private val binding get() = _binding!!
+    private var imageCapture: ImageCapture? = null
 
 
 
@@ -156,5 +160,41 @@ class MainFragment : Fragment(), View.OnClickListener {
 
     private fun showToast(message: String) {
         Toast.makeText(this@MainFragment, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun startCamera() {
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
+
+        cameraProviderFuture.addListener(Runnable {
+            // Used to bind the lifecycle of cameras to the lifecycle owner
+            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+
+            // Preview
+            val preview = Preview.Builder()
+                .build()
+                .also {
+                    it.setSurfaceProvider(viewFinder.createSurfaceProvider())
+                }
+
+            imageCapture = ImageCapture.Builder()
+                .build()
+
+            // Select back camera as a default
+            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+
+            try {
+                // Unbind use cases before rebinding
+                cameraProvider.unbindAll()
+
+                // Bind use cases to camera
+                cameraProvider.bindToLifecycle(
+                    this, cameraSelector, preview, imageCapture
+                )
+
+            } catch (exc: Exception) {
+                Log.e(MainActivity.TAG, "Use case binding failed", exc)
+            }
+
+        }, ContextCompat.getMainExecutor(this))
     }
 }

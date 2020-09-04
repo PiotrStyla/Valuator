@@ -1,46 +1,29 @@
 package pl.aplikacje.valuator
 
 import android.Manifest
-import android.app.SearchManager
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main.*
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.RequestBody.Companion.asRequestBody
 import pl.aplikacje.valuator.databinding.ActivityMainBinding
-import pl.aplikacje.valuator.model.CarnetDetectResponse
-import pl.aplikacje.valuator.network.NetworkUtils
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.io.File
-import java.text.SimpleDateFormat
-import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
-import kotlinx.android.synthetic.main.fragment_main.camera_capture_button as camera_capture_button1
 
 
 typealias LumaListener = (luma: Double) -> Unit
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private var imageCapture: ImageCapture? = null
+//    private var imageCapture: ImageCapture? = null
 
     private lateinit var outputDirectory: File
     private lateinit var cameraExecutor: ExecutorService
@@ -152,41 +135,41 @@ class MainActivity : AppCompatActivity() {
 //        Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT).show()
 //    }
 
-    private fun startCamera() {
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
-
-        cameraProviderFuture.addListener(Runnable {
-            // Used to bind the lifecycle of cameras to the lifecycle owner
-            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
-
-            // Preview
-            val preview = Preview.Builder()
-                .build()
-                .also {
-                    it.setSurfaceProvider(viewFinder.createSurfaceProvider())
-                }
-
-            imageCapture = ImageCapture.Builder()
-                .build()
-
-            // Select back camera as a default
-            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-
-            try {
-                // Unbind use cases before rebinding
-                cameraProvider.unbindAll()
-
-                // Bind use cases to camera
-                cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview, imageCapture
-                )
-
-            } catch (exc: Exception) {
-                Log.e(TAG, "Use case binding failed", exc)
-            }
-
-        }, ContextCompat.getMainExecutor(this))
-    }
+//    private fun startCamera() {
+//        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
+//
+//        cameraProviderFuture.addListener(Runnable {
+//            // Used to bind the lifecycle of cameras to the lifecycle owner
+//            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+//
+//            // Preview
+//            val preview = Preview.Builder()
+//                .build()
+//                .also {
+//                    it.setSurfaceProvider(viewFinder.createSurfaceProvider())
+//                }
+//
+//            imageCapture = ImageCapture.Builder()
+//                .build()
+//
+//            // Select back camera as a default
+//            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+//
+//            try {
+//                // Unbind use cases before rebinding
+//                cameraProvider.unbindAll()
+//
+//                // Bind use cases to camera
+//                cameraProvider.bindToLifecycle(
+//                    this, cameraSelector, preview, imageCapture
+//                )
+//
+//            } catch (exc: Exception) {
+//                Log.e(TAG, "Use case binding failed", exc)
+//            }
+//
+//        }, ContextCompat.getMainExecutor(this))
+//    }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(
