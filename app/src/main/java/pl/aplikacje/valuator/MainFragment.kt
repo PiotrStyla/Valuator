@@ -16,7 +16,6 @@ import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -34,21 +33,16 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
-import pl.aplikacje.valuator.databinding.FragmentMainBinding as FragmentMainBinding1
-
-
-
+import pl.aplikacje.valuator.databinding.FragmentMainBinding
 
 class MainFragment : Fragment(), View.OnClickListener {
-    private var _binding : FragmentMainBinding1? = null
-            private val binding get() = _binding!!
+    private var _binding : FragmentMainBinding? = null
+    private val binding get() = _binding!!
 
 
     private lateinit var outputDirectory: File
     private lateinit var cameraExecutor: ExecutorService
     private var imageCapture: ImageCapture? = null
-
-
 
     lateinit var navController: NavController
 
@@ -56,7 +50,7 @@ class MainFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentMainBinding1.inflate(inflater,container,false)
+        _binding = FragmentMainBinding.inflate(inflater,container,false)
 
         // Request camera permissions
         if (allPermissionsGranted()) {
@@ -97,7 +91,6 @@ class MainFragment : Fragment(), View.OnClickListener {
         super.onDestroyView()
         _binding = null
     }
-
 
 
     private fun takePhoto() {
@@ -164,10 +157,11 @@ class MainFragment : Fragment(), View.OnClickListener {
                     showToast("Sukces, Model: ${it.mmg.first().modelName}, Marka:${it.mmg.first().makeName}, Rok: ${it.mmg.first().years}")
                     //Web Search in new intent
                     val intent = Intent(Intent.ACTION_WEB_SEARCH)
-                    val term = "otomoto/osobowe/  ${it.mmg.first().makeName}/ ${it.mmg.first().modelName}/ od ${it.mmg.first().years}"
+                    val term =
+                        "otomoto/osobowe/  ${it.mmg.first().makeName}/ ${it.mmg.first().modelName}/ od ${it.mmg.first().years}"
                     intent.putExtra(SearchManager.QUERY, term)
                     startActivity(intent)
-                }?: run {
+                } ?: run {
                     showToast("Success, No detections found!")
                 }
             }
@@ -185,7 +179,7 @@ class MainFragment : Fragment(), View.OnClickListener {
     }
 
     private fun startCamera() {
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
 
         cameraProviderFuture.addListener(Runnable {
             // Used to bind the lifecycle of cameras to the lifecycle owner
@@ -222,16 +216,16 @@ class MainFragment : Fragment(), View.OnClickListener {
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(
-            baseContext, it
+            requireContext(), it
         ) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun getOutputDirectory(): File {
-        val mediaDir = externalMediaDirs.firstOrNull()?.let {
+        val mediaDir = requireContext().externalMediaDirs.firstOrNull()?.let {
             File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
         }
         return if (mediaDir != null && mediaDir.exists())
-            mediaDir else filesDir
+            mediaDir else requireContext().filesDir
     }
 
     override fun onDestroy() {
@@ -259,7 +253,7 @@ class MainFragment : Fragment(), View.OnClickListener {
                     "Permissions not granted by the user.",
                     Toast.LENGTH_SHORT
                 ).show()
-                    onStop()  // finish()
+                onStop()  // finish()
             }
         }
     }
