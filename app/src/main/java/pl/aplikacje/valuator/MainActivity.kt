@@ -33,6 +33,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import kotlinx.android.synthetic.main.fragment_main.camera_capture_button as camera_capture_button1
 
 
 typealias LumaListener = (luma: Double) -> Unit
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         // Request camera permissions
         if (allPermissionsGranted()) {
             startCamera()
@@ -59,96 +61,96 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Set up the listener for take photo button
-        binding.camera_capture_button.setOnClickListener() { takePhoto() }
+        //binding.camera_capture_button.setOnClickListener() { takePhoto() }
 
         outputDirectory = getOutputDirectory()
 
         cameraExecutor = Executors.newSingleThreadExecutor()
     }
 
-    public fun takePhoto() {
-        // Get a stable reference of the modifiable image capture use case
-        val imageCapture = imageCapture ?: return
+//    private fun takePhoto() {
+//        // Get a stable reference of the modifiable image capture use case
+//        val imageCapture = imageCapture ?: return
+//
+//        // Create time-stamped output file to hold the image
+//        val photoFile = File(
+//            outputDirectory,
+//            SimpleDateFormat(
+//                FILENAME_FORMAT, Locale.US
+//            ).format(System.currentTimeMillis()) + ".jpg"
+//        )
+//
+//        // Create output options object which contains file + metadata
+//        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
+//
+//        // Set up image capture listener, which is triggered after photo has
+//        // been taken
+//        imageCapture.takePicture(
+//            outputOptions,
+//            ContextCompat.getMainExecutor(this),
+//            object : ImageCapture.OnImageSavedCallback {
+//                override fun onError(exc: ImageCaptureException) {
+//                    Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+//                }
+//
+//                override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+//                    val savedUri = Uri.fromFile(photoFile)
+//                    Log.d("onImageSaved", "Photo capture succeeded: $savedUri")
+//                    uploadImage(savedUri)
+//                }
+//            })
+//    }
 
-        // Create time-stamped output file to hold the image
-        val photoFile = File(
-            outputDirectory,
-            SimpleDateFormat(
-                FILENAME_FORMAT, Locale.US
-            ).format(System.currentTimeMillis()) + ".jpg"
-        )
+//    private fun uploadImage(imageUri: Uri) {
+//        val file = File(imageUri.path)
+//
+//        // create RequestBody instance from file
+//        val requestFile = file.asRequestBody("image/*".toMediaType())
+//
+//        val parameters = mutableMapOf(
+//            "box_min_width" to "180",
+//            "box_min_height" to "180",
+//            "box_min_ratio" to "1",
+//            "box_max_ratio" to "3.15",
+//            "box_select" to "center",
+//            "region" to "DEF"
+//        )
+//
+//        val call = NetworkUtils.uploadService.upload(parameters.toMap(), requestFile)
+//        camera_capture_button.isEnabled = false
+//
+//        showToast("Loading...")
+//        call.enqueue(object : Callback<CarnetDetectResponse> {
+//            override fun onResponse(
+//                call: Call<CarnetDetectResponse>,
+//                response: Response<CarnetDetectResponse>
+//            ) {
+//                camera_capture_button.isEnabled = true
+//
+//                response.body()?.detections?.firstOrNull()?.let {
+//                    Log.d("detections:", it.mmg.first().modelName)
+//                    showToast("Sukces, Model: ${it.mmg.first().modelName}, Marka:${it.mmg.first().makeName}, Rok: ${it.mmg.first().years}")
+//                    //Web Search in new intent
+//                    val intent = Intent(Intent.ACTION_WEB_SEARCH)
+//                    val term = "otomoto/osobowe/  ${it.mmg.first().makeName}/ ${it.mmg.first().modelName}/ od ${it.mmg.first().years}"
+//                    intent.putExtra(SearchManager.QUERY, term)
+//                    startActivity(intent)
+//                }?: run {
+//                    showToast("Success, No detections found!")
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<CarnetDetectResponse>, throwable: Throwable?) {
+//                camera_capture_button.isEnabled = true
+//                Log.d("failure:", throwable.toString())
+//                showToast("failure: ${throwable.toString()}")
+//            }
+//        })
+//    }
 
-        // Create output options object which contains file + metadata
-        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
-
-        // Set up image capture listener, which is triggered after photo has
-        // been taken
-        imageCapture.takePicture(
-            outputOptions,
-            ContextCompat.getMainExecutor(this),
-            object : ImageCapture.OnImageSavedCallback {
-                override fun onError(exc: ImageCaptureException) {
-                    Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
-                }
-
-                override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                    val savedUri = Uri.fromFile(photoFile)
-                    Log.d("onImageSaved", "Photo capture succeeded: $savedUri")
-                    uploadImage(savedUri)
-                }
-            })
-    }
-
-    private fun uploadImage(imageUri: Uri) {
-        val file = File(imageUri.path)
-
-        // create RequestBody instance from file
-        val requestFile = file.asRequestBody("image/*".toMediaType())
-
-        val parameters = mutableMapOf(
-            "box_min_width" to "180",
-            "box_min_height" to "180",
-            "box_min_ratio" to "1",
-            "box_max_ratio" to "3.15",
-            "box_select" to "center",
-            "region" to "DEF"
-        )
-
-        val call = NetworkUtils.uploadService.upload(parameters.toMap(), requestFile)
-        camera_capture_button.isEnabled = false
-
-        showToast("Loading...")
-        call.enqueue(object : Callback<CarnetDetectResponse> {
-            override fun onResponse(
-                call: Call<CarnetDetectResponse>,
-                response: Response<CarnetDetectResponse>
-            ) {
-                camera_capture_button.isEnabled = true
-
-                response.body()?.detections?.firstOrNull()?.let {
-                    Log.d("detections:", it.mmg.first().modelName)
-                    showToast("Sukces, Model: ${it.mmg.first().modelName}, Marka:${it.mmg.first().makeName}, Rok: ${it.mmg.first().years}")
-                    //Web Search in new intent
-                    val intent = Intent(Intent.ACTION_WEB_SEARCH)
-                    val term = "otomoto/osobowe/  ${it.mmg.first().makeName}/ ${it.mmg.first().modelName}/ od ${it.mmg.first().years}"
-                    intent.putExtra(SearchManager.QUERY, term)
-                    startActivity(intent)
-                }?: run {
-                    showToast("Success, No detections found!")
-                }
-            }
-
-            override fun onFailure(call: Call<CarnetDetectResponse>, throwable: Throwable?) {
-                camera_capture_button.isEnabled = true
-                Log.d("failure:", throwable.toString())
-                showToast("failure: ${throwable.toString()}")
-            }
-        })
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT).show()
-    }
+//    private fun showToast(message: String) {
+//        Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT).show()
+//    }
 
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
