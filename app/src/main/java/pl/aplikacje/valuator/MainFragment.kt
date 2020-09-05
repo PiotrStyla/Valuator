@@ -20,9 +20,13 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.room.Room
 import kotlinx.android.synthetic.main.fragment_main.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.asRequestBody
+import org.jetbrains.anko.uiThread
+import pl.aplikacje.valuator.database.AppDatabase
+import pl.aplikacje.valuator.database.ItemsInDatabase
 import pl.aplikacje.valuator.model.CarnetDetectResponse
 import pl.aplikacje.valuator.network.NetworkUtils
 import retrofit2.Call
@@ -34,6 +38,9 @@ import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import pl.aplikacje.valuator.databinding.FragmentMainBinding
+
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 class MainFragment : Fragment(), View.OnClickListener {
     private var _binding : FragmentMainBinding? = null
@@ -51,6 +58,26 @@ class MainFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
+
+        doAsync {
+
+            val db = Room.databaseBuilder(
+                requireContext(),
+                AppDatabase::class.java, "database-name"
+            ).build()
+
+
+
+            val carsHistory = db.itemDao().getAll()
+
+
+
+            uiThread {
+
+
+            }
+        }
+
 
         // Request camera permissions
         if (allPermissionsGranted()) {
