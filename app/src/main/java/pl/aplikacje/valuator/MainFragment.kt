@@ -50,7 +50,7 @@ class MainFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentMainBinding.inflate(inflater,container,false)
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
 
         // Request camera permissions
         if (allPermissionsGranted()) {
@@ -60,13 +60,14 @@ class MainFragment : Fragment(), View.OnClickListener {
                 REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
             )
         }
+        binding.cameraCaptureButton.setOnClickListener { takePhoto() }
 
         outputDirectory = getOutputDirectory()
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,14 +75,13 @@ class MainFragment : Fragment(), View.OnClickListener {
         navController = Navigation.findNavController(view)
         binding.buttonHistory.setOnClickListener(this)
         binding.buttonSettings.setOnClickListener(this)
-        binding.cameraCaptureButton.setOnClickListener(this)
-
+        binding.cameraCaptureButton.setOnClickListener { takePhoto()}
     }
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.button_history -> navController!!.navigate(R.id.action_mainFragment_to_historyFragment)
-            R.id.button_settings -> navController!!.navigate(R.id.action_mainFragment_to_settingsFragment)
+            R.id.button_history -> navController.navigate(R.id.action_mainFragment_to_historyFragment)
+            R.id.button_settings -> navController.navigate(R.id.action_mainFragment_to_settingsFragment)
 
 
         }
