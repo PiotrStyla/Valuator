@@ -37,6 +37,7 @@ import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import pl.aplikacje.valuator.databinding.FragmentMainBinding
+import kotlin.toString as toString1
 
 // import org.jetbrains.anko.doAsync
 
@@ -145,8 +146,9 @@ class MainFragment : Fragment(), View.OnClickListener {
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val savedUri = Uri.fromFile(photoFile)
-                    Log.d("onImageSaved", "Photo capture succeeded: $savedUri")
+                    Log.d("onImageSaved", "Photo capture suceeded: $savedUri")
                     uploadImage(savedUri)
+                    val path = savedUri.path
                 }
             })
     }
@@ -193,8 +195,8 @@ class MainFragment : Fragment(), View.OnClickListener {
 
             override fun onFailure(call: Call<CarnetDetectResponse>, throwable: Throwable?) {
                 camera_capture_button.isEnabled = true
-                Log.d("failure:", throwable.toString())
-                showToast("failure: ${throwable.toString()}")
+                Log.d("failure:", throwable.toString1())
+                showToast("failure: ${throwable.toString1()}")
             }
         })
     }
@@ -245,7 +247,7 @@ class MainFragment : Fragment(), View.OnClickListener {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun getOutputDirectory(): File {
+    fun getOutputDirectory(): File {
         val mediaDir = requireContext().externalMediaDirs.firstOrNull()?.let {
             File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
         }
