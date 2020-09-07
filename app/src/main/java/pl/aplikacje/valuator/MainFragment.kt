@@ -148,7 +148,6 @@ class MainFragment : Fragment(), View.OnClickListener {
                     val savedUri = Uri.fromFile(photoFile)
                     Log.d("onImageSaved", "Photo capture suceeded: $savedUri")
                     uploadImage(savedUri)
-                    val path = savedUri.path
                 }
             })
     }
