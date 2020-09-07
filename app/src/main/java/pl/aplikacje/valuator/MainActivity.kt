@@ -1,14 +1,8 @@
 package pl.aplikacje.valuator
 
-import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.room.Room
-import pl.aplikacje.valuator.database.AppDatabase
-import pl.aplikacje.valuator.database.ItemsInDatabase
 import pl.aplikacje.valuator.databinding.ActivityMainBinding
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 
 
 typealias LumaListener = (luma: Double) -> Unit

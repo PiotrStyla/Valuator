@@ -26,7 +26,6 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.asRequestBody
 import org.jetbrains.anko.uiThread
 import pl.aplikacje.valuator.database.AppDatabase
-import pl.aplikacje.valuator.database.ItemsInDatabase
 import pl.aplikacje.valuator.model.CarnetDetectResponse
 import pl.aplikacje.valuator.network.NetworkUtils
 import retrofit2.Call
@@ -39,8 +38,7 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import pl.aplikacje.valuator.databinding.FragmentMainBinding
 
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
+// import org.jetbrains.anko.doAsync
 
 class MainFragment : Fragment(), View.OnClickListener {
     private var _binding : FragmentMainBinding? = null
@@ -59,24 +57,24 @@ class MainFragment : Fragment(), View.OnClickListener {
     ): View? {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
 
-        doAsync {
-
-            val db = Room.databaseBuilder(
-                requireContext(),
-                AppDatabase::class.java, "database-name"
-            ).build()
-
-
-
-            val carsHistory = db.itemDao().getAll()
-
-
-
-            uiThread {
-
-
-            }
-        }
+//        doAsync {
+//
+//            val db = Room.databaseBuilder(
+//                requireContext(),
+//                AppDatabase::class.java, "database-name"
+//            ).build()
+//
+//
+//
+//            val carsHistory = db.itemDao().getAll()
+//
+//
+//
+//            uiThread {
+//
+//
+//            }
+//        }
 
 
         // Request camera permissions
