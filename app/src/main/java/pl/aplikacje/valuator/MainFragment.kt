@@ -58,25 +58,6 @@ class MainFragment : Fragment(), View.OnClickListener {
     ): View? {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
 
-//        doAsync {
-//
-//            val db = Room.databaseBuilder(
-//                requireContext(),
-//                AppDatabase::class.java, "database-name"
-//            ).build()
-//
-//
-//
-//            val carsHistory = db.itemDao().getAll()
-//
-//
-//
-//            uiThread {
-//
-//
-//            }
-//        }
-
 
         // Request camera permissions
         if (allPermissionsGranted()) {

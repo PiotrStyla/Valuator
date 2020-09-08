@@ -2,6 +2,8 @@ package pl.aplikacje.valuator
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import pl.aplikacje.valuator.databinding.ActivityMainBinding
 
 
@@ -15,26 +17,5 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        doAsync {
-//
-//            val db = Room.databaseBuilder(
-//                applicationContext,
-//                AppDatabase::class.java, "database-name"
-//            ).build()
-//
-//            db.itemDao().insertAll(
-//                ItemsInDatabase
-//                    (uid = 0, "make_name", "model_name", "years")
-//            )
-//
-//            val carsHistory = db.itemDao().getAll()
-//
-//
-//
-//            uiThread {
-//
-//
-//            }
-//        }
     }
 }

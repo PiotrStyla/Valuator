@@ -31,13 +31,14 @@ class HistoryFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
         binding.buttonSettings.setOnClickListener(this)
-        binding.cameraCaptureButton.setOnClickListener(this)
+        binding.cameraNewCaptureButton.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.camera_new_capture_button -> navController!!.navigate(R.id.action_historyFragment_to_mainFragment)
-            R.id.button_settings -> navController!!.navigate(R.id.action_historyFragment_to_settingsFragment)
+
+            R.id.camera_new_capture_button -> navController.navigate(R.id.action_historyFragment_to_mainFragment)
+            R.id.button_settings -> navController.navigate(R.id.action_historyFragment_to_settingsFragment)
 
         }
     }

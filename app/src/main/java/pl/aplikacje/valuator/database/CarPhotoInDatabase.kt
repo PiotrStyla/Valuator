@@ -1,14 +1,7 @@
 package pl.aplikacje.valuator.database
 
-import android.media.Image
-import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import kotlinx.android.synthetic.main.item_view.view.*
-import pl.aplikacje.valuator.MainFragment
-import java.io.File
-
-
 
 
 @Entity(tableName = "cars_photo_history")
