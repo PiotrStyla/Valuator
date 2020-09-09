@@ -78,9 +78,6 @@ class MainFragment : Fragment(), View.OnClickListener {
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
-
-
-
         // Inflate the layout for this fragment
         return binding.root
     }

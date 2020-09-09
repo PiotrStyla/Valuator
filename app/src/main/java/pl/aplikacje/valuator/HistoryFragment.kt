@@ -9,7 +9,9 @@ import android.widget.Button
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_history.view.*
+import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_value_page.*
 import pl.aplikacje.valuator.databinding.FragmentHistoryBinding
 import pl.aplikacje.valuator.databinding.FragmentMainBinding
@@ -21,14 +23,23 @@ class HistoryFragment : Fragment(), View.OnClickListener {
     private val binding get() = _binding!!
 
     lateinit var navController: NavController
+    lateinit var recyclerView: RecyclerView
+    lateinit var adapter: ItemListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+
+
     ): View? {
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
+
+        binding.recyclerView.adapter
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history, container, false)
+        return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,6 +47,9 @@ class HistoryFragment : Fragment(), View.OnClickListener {
         navController = Navigation.findNavController(view)
         binding.buttonSettings.setOnClickListener(this)
         binding.cameraNewCaptureButton.setOnClickListener(this)
+
+        binding.recyclerView.adapter
+        R.id.recycler_view
     }
 
     override fun onClick(v: View?) {
