@@ -20,8 +20,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import kotlinx.android.synthetic.main.fragment_history.view.*
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.fragment_value_page.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.asRequestBody
 import org.jetbrains.anko.uiThread
@@ -37,6 +41,7 @@ import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import pl.aplikacje.valuator.databinding.FragmentMainBinding
+import pl.aplikacje.valuator.recyclerview.ItemListAdapter
 import kotlin.toString as toString1
 
 // import org.jetbrains.anko.doAsync
@@ -72,6 +77,12 @@ class MainFragment : Fragment(), View.OnClickListener {
         outputDirectory = getOutputDirectory()
 
         cameraExecutor = Executors.newSingleThreadExecutor()
+
+
+        binding.viewFinder.recycler_view
+        val adapter = ItemListAdapter(requireContext())
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         // Inflate the layout for this fragment
         return binding.root

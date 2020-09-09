@@ -9,9 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import pl.aplikacje.valuator.R
 import pl.aplikacje.valuator.database.CarPhotoInDatabase
 
-class ItemListAdapter internal constructor(
-    context: Context
-) : RecyclerView.Adapter<ItemListAdapter.ItemViewHolder>()
+class ItemListAdapter internal constructor(context: Context)
+    : RecyclerView.Adapter<ItemListAdapter.ItemViewHolder>()
 
 {
     private val inflater: LayoutInflater = LayoutInflater.from(context)

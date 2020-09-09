@@ -7,7 +7,8 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [CarPhotoInDatabase::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun itemDao(): ItemDao
+
+    abstract fun itemDao(): CarPhotoDatabaseDao //will be used in repository
 
     companion object {
         // Singleton prevents multiple instances of database opening at the

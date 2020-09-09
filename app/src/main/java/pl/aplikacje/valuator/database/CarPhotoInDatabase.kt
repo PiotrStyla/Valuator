@@ -20,16 +20,16 @@ class CarPhotoInDatabase(
 )
 
 @Dao
-interface ItemDao {
+interface CarPhotoDatabaseDao {
 
     @Query("SELECT * FROM cars_photo_history")
     fun getAll(): LiveData<List<CarPhotoInDatabase>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(item: CarPhotoInDatabase)
+    suspend fun insert(car: CarPhotoInDatabase)
 
     @Delete
-    fun delete(item: CarPhotoInDatabase)
+    fun delete(car: CarPhotoInDatabase)
 
 
     @Query("DELETE FROM cars_photo_history")

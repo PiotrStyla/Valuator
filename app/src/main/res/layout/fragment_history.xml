@@ -36,7 +36,8 @@
         android:text="Take a new photo"
         app:layout_constraintBottom_toTopOf="@id/button_settings"
         app:layout_constraintEnd_toEndOf="@id/historyLayout"
-        app:layout_constraintStart_toStartOf="@id/historyLayout" />
+        app:layout_constraintStart_toStartOf="@id/historyLayout"
+        />
 
     <Button
         android:id="@+id/button_settings"

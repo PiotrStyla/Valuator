@@ -31,7 +31,7 @@ class AppViewModel (application: Application) : AndroidViewModel(application) {
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
-    fun insert(item: CarPhotoInDatabase) = viewModelScope.launch(Dispatchers.IO) {
-        repository.insert(item)
+    fun insert(car: CarPhotoInDatabase) = viewModelScope.launch(Dispatchers.IO) {
+        repository.insert(car)
     }
 }
