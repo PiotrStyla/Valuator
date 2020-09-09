@@ -79,10 +79,7 @@ class MainFragment : Fragment(), View.OnClickListener {
         cameraExecutor = Executors.newSingleThreadExecutor()
 
 
-        binding.viewFinder.recycler_view
-        val adapter = ItemListAdapter(requireContext())
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
 
         // Inflate the layout for this fragment
         return binding.root

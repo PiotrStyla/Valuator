@@ -8,8 +8,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_history.view.*
+import kotlinx.android.synthetic.main.fragment_value_page.*
 import pl.aplikacje.valuator.databinding.FragmentHistoryBinding
 import pl.aplikacje.valuator.databinding.FragmentMainBinding
+import pl.aplikacje.valuator.recyclerview.ItemListAdapter
 
 
 class HistoryFragment : Fragment(), View.OnClickListener {
