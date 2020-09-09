@@ -34,7 +34,7 @@ class HistoryFragment : Fragment(), View.OnClickListener {
     ): View? {
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
 
-        binding.recyclerView.adapter
+        binding.recyclerView
 
 
         // Inflate the layout for this fragment
@@ -49,6 +49,7 @@ class HistoryFragment : Fragment(), View.OnClickListener {
         binding.cameraNewCaptureButton.setOnClickListener(this)
 
         binding.recyclerView.adapter
+        binding.recyclerView.layoutManager
         R.id.recycler_view
     }
 
