@@ -49,7 +49,7 @@ class HistoryFragment : Fragment(), View.OnClickListener {
         binding.cameraNewCaptureButton.setOnClickListener(this)
 
         binding.recyclerView.adapter
-        binding.recyclerView.layoutManager
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         R.id.recycler_view
     }
 

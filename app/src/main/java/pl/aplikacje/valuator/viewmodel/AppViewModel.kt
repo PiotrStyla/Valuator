@@ -23,7 +23,7 @@ class AppViewModel (application: Application) : AndroidViewModel(application) {
     val allPositions: LiveData<List<CarPhotoInDatabase>>
 
     init {
-        val itemsDao = AppDatabase.getDatabase(application).itemDao()
+        val itemsDao = AppDatabase.getDatabase(application, viewModelScope).itemDao()
         repository = AppReository(itemsDao)
         allPositions = repository.allItems
     }

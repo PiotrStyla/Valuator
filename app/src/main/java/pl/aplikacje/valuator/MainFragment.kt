@@ -167,6 +167,10 @@ class MainFragment : Fragment(), View.OnClickListener {
                 response.body()?.detections?.firstOrNull()?.let {
                     Log.d("detections:", it.mmg.first().modelName)
                     showToast("Sukces, Model: ${it.mmg.first().modelName}, Marka:${it.mmg.first().makeName}, Rok: ${it.mmg.first().years}")
+
+                    //Save to the db
+
+
                     //Web Search in new intent
                     val intent = Intent(Intent.ACTION_WEB_SEARCH)
                     val term =

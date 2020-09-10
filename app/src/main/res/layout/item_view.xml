@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/image_view"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginEnd="8dp"
             android:src="@drawable/clock" />
 
@@ -34,6 +34,32 @@
             android:layout_below="@id/text_view_1"
             android:layout_toEndOf="@id/image_view"
             android:text="Line 2 " />
+
+        <TextView
+            android:id="@+id/text_view_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_2"
+            android:layout_toEndOf="@id/image_view"
+            android:text="Line 3 " />
+
+        <TextView
+            android:id="@+id/text_view_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_3"
+            android:layout_toEndOf="@id/image_view"
+            android:text="Line 4 " />
+
+
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/image_view"
+            android:background="?android:attr/listDivider" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
