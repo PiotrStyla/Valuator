@@ -42,6 +42,7 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import pl.aplikacje.valuator.databinding.FragmentMainBinding
 import pl.aplikacje.valuator.recyclerview.ItemListAdapter
+import pl.aplikacje.valuator.viewmodel.AppViewModel
 import kotlin.toString as toString1
 
 // import org.jetbrains.anko.doAsync
@@ -56,6 +57,8 @@ class MainFragment : Fragment(), View.OnClickListener {
     private var imageCapture: ImageCapture? = null
 
     lateinit var navController: NavController
+
+//    private lateinit var appViewModel: AppViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

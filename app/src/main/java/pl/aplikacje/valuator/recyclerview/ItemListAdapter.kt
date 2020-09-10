@@ -15,21 +15,19 @@ class ItemListAdapter internal constructor(context: Context)
 
 
 {
-//    private var _binding: ItemListAdapter? = null
-//    private val binding get() = _binding!!
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var items = emptyList<CarPhotoInDatabase>() // Cached copy of words
 
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val itemItemView1: TextView = itemView.findViewById(R.id.text_view_1)
+        val itemItemView1: TextView  = itemView.findViewById(R.id.text_view_1)
         val itemItemView2: TextView = itemView.findViewById(R.id.text_view_2)
         val itemItemView3: TextView = itemView.findViewById(R.id.text_view_3)
         val itemItemView4: TextView = itemView.findViewById(R.id.text_view_4)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val itemView = inflater.inflate(R.layout.fragment_history, parent, false)
+        val itemView = inflater.inflate(R.layout.item_view, parent, false)
         return ItemViewHolder(itemView)
     }
 

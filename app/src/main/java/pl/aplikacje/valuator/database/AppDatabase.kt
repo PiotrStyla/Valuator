@@ -47,14 +47,14 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
         }
-        suspend fun populateDatabase(wordDao: CarPhotoDatabaseDao) {
+        suspend fun populateDatabase(carPhotoDatabaseDao: CarPhotoDatabaseDao) {
             // Delete all content here.
-            wordDao.deleteAll()
+            carPhotoDatabaseDao.deleteAll()
 
             // Add sample words.
-            var word = CarPhotoInDatabase( 1,"aaa","Toyota", "Avensis","2012")
+            var car = CarPhotoInDatabase( 1,"aaa","Toyota", "Avensis","2012")
 
-            wordDao.insert(word)
+            carPhotoDatabaseDao.insert(car)
 
 
 //            word = CarPhotoInDatabase()
