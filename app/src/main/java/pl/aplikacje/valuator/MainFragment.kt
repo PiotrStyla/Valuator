@@ -175,8 +175,8 @@ class MainFragment : Fragment(), View.OnClickListener {
                     startActivity(intent)
 
                     //Instead of Web Search just open a ValuePageFragment
-                    val car = CarPhotoInDatabase(1, "path", "${it.mmg.first().makeName} ", "${it.mmg.first().modelName}", "${it.mmg.first().years}" )
-                    appViewModel.insert(car)
+//                    val car = CarPhotoInDatabase(1, "path", "${it.mmg.first().makeName} ", "${it.mmg.first().modelName}", "${it.mmg.first().years}" )
+//                    appViewModel.insert(car)
 
 
                 } ?: run {
