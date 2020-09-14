@@ -52,7 +52,7 @@ abstract class AppDatabase : RoomDatabase() {
             carPhotoDatabaseDao.deleteAll()
 
             // Add sample words.
-            var newcar = CarPhotoInDatabase( 1,"aaa","", "Avensis","2012")
+            var newcar = CarPhotoInDatabase( 1,"aaa","Toyota", "Avensis","2012")
 
             carPhotoDatabaseDao.insert(newcar)
 
