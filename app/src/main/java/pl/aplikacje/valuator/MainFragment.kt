@@ -20,16 +20,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
-import kotlinx.android.synthetic.main.fragment_history.view.*
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.fragment_value_page.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.asRequestBody
-import org.jetbrains.anko.uiThread
-import pl.aplikacje.valuator.database.AppDatabase
+import pl.aplikacje.valuator.database.CarPhotoDatabaseDao
+import pl.aplikacje.valuator.database.CarPhotoInDatabase
 import pl.aplikacje.valuator.model.CarnetDetectResponse
 import pl.aplikacje.valuator.network.NetworkUtils
 import retrofit2.Call
@@ -58,7 +53,7 @@ class MainFragment : Fragment(), View.OnClickListener {
 
     lateinit var navController: NavController
 
-//    private lateinit var appViewModel: AppViewModel
+    private lateinit var appViewModel: AppViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -171,8 +166,6 @@ class MainFragment : Fragment(), View.OnClickListener {
                     Log.d("detections:", it.mmg.first().modelName)
                     showToast("Sukces, Model: ${it.mmg.first().modelName}, Marka:${it.mmg.first().makeName}, Rok: ${it.mmg.first().years}")
 
-                    //Save to the db
-
 
                     //Web Search in new intent
                     val intent = Intent(Intent.ACTION_WEB_SEARCH)
@@ -180,6 +173,12 @@ class MainFragment : Fragment(), View.OnClickListener {
                         "otomoto/osobowe/  ${it.mmg.first().makeName}/ ${it.mmg.first().modelName}/ od ${it.mmg.first().years}"
                     intent.putExtra(SearchManager.QUERY, term)
                     startActivity(intent)
+
+                    //Instead of Web Search just open a ValuePageFragment
+                    val car = CarPhotoInDatabase(1, "path", "${it.mmg.first().makeName} ", "${it.mmg.first().modelName}", "${it.mmg.first().years}" )
+                    appViewModel.insert(car)
+
+
                 } ?: run {
                     showToast("Success, No detections found!")
                 }

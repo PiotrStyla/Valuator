@@ -18,7 +18,7 @@ class AppReository(private val itemDao: CarPhotoDatabaseDao) {
 
 
 
-    suspend fun insert(newCar: CarPhotoInDatabase) {
-        itemDao.insert(newCar)
+    suspend fun insert(car: CarPhotoInDatabase) {
+        itemDao.insert(car)
     }
 }

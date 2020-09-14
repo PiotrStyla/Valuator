@@ -27,11 +27,12 @@ class HistoryFragment : Fragment(), View.OnClickListener {
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var appViewModel: AppViewModel
+    private lateinit var appViewModel: AppViewModel
 
     lateinit var navController: NavController
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: ItemListAdapter
+
 
 
     override fun onCreateView(
@@ -43,6 +44,7 @@ class HistoryFragment : Fragment(), View.OnClickListener {
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
 
         binding.recyclerView
+
 
 
         // Inflate the layout for this fragment

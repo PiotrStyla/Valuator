@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 import pl.aplikacje.valuator.database.AppDatabase
 import pl.aplikacje.valuator.database.AppDatabase.Companion.getDatabase
 import pl.aplikacje.valuator.database.CarPhotoInDatabase
+import pl.aplikacje.valuator.model.Mmg
 import pl.aplikacje.valuator.repository.AppReository
 
 class AppViewModel (application: Application) : AndroidViewModel(application) {

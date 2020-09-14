@@ -5,7 +5,7 @@ import androidx.room.*
 
 
 @Entity(tableName = "cars_photo_history")
-class CarPhotoInDatabase(
+data class CarPhotoInDatabase(
 
     @PrimaryKey(autoGenerate = true) val uid: Int,
 
