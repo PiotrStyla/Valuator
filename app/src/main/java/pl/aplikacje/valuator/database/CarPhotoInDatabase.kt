@@ -6,18 +6,14 @@ import androidx.room.*
 
 @Entity(tableName = "cars_photo_history")
 data class CarPhotoInDatabase(
-
-    @PrimaryKey(autoGenerate = true) val uid: Int,
-
-    @ColumnInfo val savedUri: String,
-
-    @ColumnInfo val make_name: String,
-
-    @ColumnInfo val model_name: String,
-
-    @ColumnInfo val years: String
-
-)
+    var savedUri: String?,
+    var make_name: String,
+    var model_name: String,
+    var years: String
+) {
+    @PrimaryKey(autoGenerate = true)
+    var uid: Int = 0
+}
 
 @Dao
 interface CarPhotoDatabaseDao {

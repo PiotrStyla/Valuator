@@ -1,8 +1,6 @@
 package pl.aplikacje.valuator
 
 import android.Manifest
-import android.app.SearchManager
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -18,15 +16,16 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import kotlinx.android.synthetic.main.fragment_main.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.asRequestBody
-import pl.aplikacje.valuator.database.CarPhotoDatabaseDao
 import pl.aplikacje.valuator.database.CarPhotoInDatabase
+import pl.aplikacje.valuator.databinding.FragmentMainBinding
 import pl.aplikacje.valuator.model.CarnetDetectResponse
 import pl.aplikacje.valuator.network.NetworkUtils
+import pl.aplikacje.valuator.viewmodel.AppViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,9 +34,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
-import pl.aplikacje.valuator.databinding.FragmentMainBinding
-import pl.aplikacje.valuator.recyclerview.ItemListAdapter
-import pl.aplikacje.valuator.viewmodel.AppViewModel
 import kotlin.toString as toString1
 
 // import org.jetbrains.anko.doAsync
@@ -53,7 +49,7 @@ class MainFragment : Fragment(), View.OnClickListener {
 
     lateinit var navController: NavController
 
-    private lateinit var appViewModel: AppViewModel
+    private val appViewModel: AppViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -152,7 +148,7 @@ class MainFragment : Fragment(), View.OnClickListener {
         )
 
         val call = NetworkUtils.uploadService.upload(parameters.toMap(), requestFile)
-        camera_capture_button.isEnabled = false
+        binding.cameraCaptureButton.isEnabled = false
 
         showToast("Loading...")
         call.enqueue(object : Callback<CarnetDetectResponse> {
@@ -160,7 +156,7 @@ class MainFragment : Fragment(), View.OnClickListener {
                 call: Call<CarnetDetectResponse>,
                 response: Response<CarnetDetectResponse>
             ) {
-                camera_capture_button.isEnabled = true
+                binding.cameraCaptureButton.isEnabled = true
 
                 response.body()?.detections?.firstOrNull()?.let {
                     Log.d("detections:", it.mmg.first().modelName)
@@ -168,15 +164,15 @@ class MainFragment : Fragment(), View.OnClickListener {
 
 
                     //Web Search in new intent
-                    val intent = Intent(Intent.ACTION_WEB_SEARCH)
+                    /*val intent = Intent(Intent.ACTION_WEB_SEARCH)
                     val term =
                         "otomoto/osobowe/  ${it.mmg.first().makeName}/ ${it.mmg.first().modelName}/ od ${it.mmg.first().years}"
                     intent.putExtra(SearchManager.QUERY, term)
-                    startActivity(intent)
+                    startActivity(intent)*/
 
                     //Instead of Web Search just open a ValuePageFragment
-//                    val car = CarPhotoInDatabase(1, "path", "${it.mmg.first().makeName} ", "${it.mmg.first().modelName}", "${it.mmg.first().years}" )
-//                    appViewModel.insert(car)
+                    val car = CarPhotoInDatabase(imageUri.path, "${it.mmg.first().makeName} ", it.mmg.first().modelName, it.mmg.first().years)
+                    appViewModel.insert(car)
 
 
                 } ?: run {
@@ -185,7 +181,7 @@ class MainFragment : Fragment(), View.OnClickListener {
             }
 
             override fun onFailure(call: Call<CarnetDetectResponse>, throwable: Throwable?) {
-                camera_capture_button.isEnabled = true
+                binding.cameraCaptureButton.isEnabled = true
                 Log.d("failure:", throwable.toString1())
                 showToast("failure: ${throwable.toString1()}")
             }
@@ -207,7 +203,7 @@ class MainFragment : Fragment(), View.OnClickListener {
             val preview = Preview.Builder()
                 .build()
                 .also {
-                    it.setSurfaceProvider(viewFinder.createSurfaceProvider())
+                    it.setSurfaceProvider(binding.viewFinder.createSurfaceProvider())
                 }
 
             imageCapture = ImageCapture.Builder()

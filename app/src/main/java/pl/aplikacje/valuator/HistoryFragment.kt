@@ -1,29 +1,24 @@
 package pl.aplikacje.valuator
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.lifecycle.LiveData
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_history.view.*
-import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.fragment_value_page.*
-import pl.aplikacje.valuator.database.CarPhotoInDatabase
 import pl.aplikacje.valuator.databinding.FragmentHistoryBinding
-import pl.aplikacje.valuator.databinding.FragmentMainBinding
 import pl.aplikacje.valuator.recyclerview.ItemListAdapter
 import pl.aplikacje.valuator.viewmodel.AppViewModel
 
 
 class HistoryFragment : Fragment(), View.OnClickListener {
+
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
 
@@ -34,22 +29,12 @@ class HistoryFragment : Fragment(), View.OnClickListener {
     lateinit var adapter: ItemListAdapter
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-
-
     ): View? {
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
-
-        binding.recyclerView
-
-
-
-        // Inflate the layout for this fragment
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,16 +43,15 @@ class HistoryFragment : Fragment(), View.OnClickListener {
         binding.buttonSettings.setOnClickListener(this)
         binding.cameraNewCaptureButton.setOnClickListener(this)
 
-        R.id.recycler_view
         val adapter = ItemListAdapter(requireContext())
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
+        binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
 
         appViewModel = ViewModelProvider(this).get(AppViewModel::class.java)
 
         appViewModel.allPositions.observe(viewLifecycleOwner,
-            Observer { items -> items?.let {adapter.setItems(it)} })
+            Observer { items -> items?.let { adapter.setItems(it) } })
 
     }
 
