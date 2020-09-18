@@ -22,7 +22,7 @@ interface CarPhotoDatabaseDao {
     fun getAll(): LiveData<List<CarPhotoInDatabase>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(car: CarPhotoInDatabase)
+    suspend fun insert(car: CarPhotoInDatabase): Long
 
     @Delete
     fun delete(car: CarPhotoInDatabase)
