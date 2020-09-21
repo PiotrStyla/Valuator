@@ -42,4 +42,9 @@ class AppViewModel (application: Application) : AndroidViewModel(application) {
     fun insert(car: CarPhotoInDatabase) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(car)
     }
+
+    fun delete(car: CarPhotoInDatabase) = viewModelScope.launch(Dispatchers.IO) {
+        repository.delete(car)
+    }
+
 }

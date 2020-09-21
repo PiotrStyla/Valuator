@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_value_page.*
+import pl.aplikacje.valuator.database.CarPhotoInDatabase
 import pl.aplikacje.valuator.databinding.FragmentSettingsBinding
 import pl.aplikacje.valuator.databinding.FragmentValuePageBinding
 import pl.aplikacje.valuator.repository.AppReository
@@ -25,7 +28,7 @@ class ValuePageFragment : Fragment(), View.OnClickListener {
 
     private lateinit var appViewModel: AppViewModel
 
-    val id = appViewModel.id
+    //val id = appViewModel.id
 
 
     override fun onCreateView(
@@ -49,12 +52,12 @@ class ValuePageFragment : Fragment(), View.OnClickListener {
         appViewModel = ViewModelProvider(this).get(AppViewModel::class.java)
         appViewModel.latestPosition
 
-        binding.textView.setText(appViewModel.latestPosition)
-        binding.textView.setText(id)
+//        binding.textView.setText(appViewModel.latestPosition)
+//        binding.textView.setText(id)
 
 
-//        appViewModel.latestPosition.observe(viewLifecycleOwner,
-//            Observer { items -> items?.let { textView.setText(id) } })
+        appViewModel.latestPosition.observe(viewLifecycleOwner,
+            Observer { item -> item?.let { textView} })
 
 
 
@@ -75,3 +78,5 @@ class ValuePageFragment : Fragment(), View.OnClickListener {
         _binding = null
     }
 }
+
+

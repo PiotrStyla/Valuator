@@ -31,7 +31,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="42dp"
         android:textColor="@color/colorWhite"
-        android:text="@{.....}"
+        android:text="@{appViewModel.latestPosition.make_name}"
         app:layout_constraintBottom_toTopOf="@+id/camera_new_capture_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

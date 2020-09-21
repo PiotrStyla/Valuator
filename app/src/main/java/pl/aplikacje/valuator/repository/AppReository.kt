@@ -18,9 +18,11 @@ class AppReository(private val itemDao: CarPhotoDatabaseDao) {
         itemDao.delete(car)
     }
 
-
-
     suspend fun insert(car: CarPhotoInDatabase) {
         val recordId = itemDao.insert(car)
     }
+
+
+
+
 }
