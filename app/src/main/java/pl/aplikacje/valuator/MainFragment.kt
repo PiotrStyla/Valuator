@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import kotlinx.coroutines.android.awaitFrame
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.asRequestBody
 import pl.aplikacje.valuator.database.CarPhotoInDatabase
@@ -162,7 +163,6 @@ class MainFragment : Fragment(), View.OnClickListener {
                     Log.d("detections:", it.mmg.first().modelName)
                     showToast("Sukces, Model: ${it.mmg.first().modelName}, Marka:${it.mmg.first().makeName}, Rok: ${it.mmg.first().years}")
 
-
                     //Web Search in new intent
                     /*val intent = Intent(Intent.ACTION_WEB_SEARCH)
                     val term =
@@ -173,6 +173,10 @@ class MainFragment : Fragment(), View.OnClickListener {
                     //Instead of Web Search just open a ValuePageFragment
                     val car = CarPhotoInDatabase(imageUri.path, "${it.mmg.first().makeName} ", it.mmg.first().modelName, it.mmg.first().years)
                     appViewModel.insert(car)
+
+                    navController.navigate(R.id.action_mainFragment_to_valuePageFragment)
+
+
 
 
                 } ?: run {

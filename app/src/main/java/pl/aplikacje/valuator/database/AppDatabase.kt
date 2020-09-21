@@ -8,7 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [CarPhotoInDatabase::class], version = 1)
+@Database(entities = [CarPhotoInDatabase::class], version = 3)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun itemDao(): CarPhotoDatabaseDao //will be used in repository
@@ -30,6 +30,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "car_photo_database"
                 ).addCallback(AppDatabaseCallback(scope))
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 return instance
@@ -37,21 +38,16 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
 
-    private class AppDatabaseCallback(private val scope: CoroutineScope) : RoomDatabase.Callback() {
+    private class AppDatabaseCallback(
+        private val scope: CoroutineScope
+    ) : RoomDatabase.Callback() {
 
         override fun onOpen(db: SupportSQLiteDatabase) {
             super.onOpen(db)
             INSTANCE?.let { database ->
                 scope.launch {
-                    populateDatabase(database.itemDao())
                 }
             }
-        }
-
-        suspend fun populateDatabase(carPhotoDatabaseDao: CarPhotoDatabaseDao) {
-            // Add sample words.
-            val newCar = CarPhotoInDatabase(null,"Toyota", "Avensis", "2012")
-            carPhotoDatabaseDao.insert(newCar)
         }
     }
 }

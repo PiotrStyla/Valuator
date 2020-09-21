@@ -11,6 +11,8 @@ class AppReository(private val itemDao: CarPhotoDatabaseDao) {
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
     val allItems: LiveData<List<CarPhotoInDatabase>> = itemDao.getAll()
+    val latestItem: LiveData<List<CarPhotoInDatabase>> = itemDao.getLatest()
+    val recordId: Long = 0
 
     fun delete (car: CarPhotoInDatabase){
         itemDao.delete(car)
@@ -19,6 +21,6 @@ class AppReository(private val itemDao: CarPhotoDatabaseDao) {
 
 
     suspend fun insert(car: CarPhotoInDatabase) {
-        itemDao.insert(car)
+        val recordId = itemDao.insert(car)
     }
 }

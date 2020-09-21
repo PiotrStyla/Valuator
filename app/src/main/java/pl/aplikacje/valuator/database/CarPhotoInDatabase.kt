@@ -2,6 +2,7 @@ package pl.aplikacje.valuator.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import pl.aplikacje.valuator.viewmodel.AppViewModel
 
 
 @Entity(tableName = "cars_photo_history")
@@ -22,7 +23,7 @@ interface CarPhotoDatabaseDao {
     fun getAll(): LiveData<List<CarPhotoInDatabase>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(car: CarPhotoInDatabase)
+    suspend fun insert(car: CarPhotoInDatabase): Long
 
     @Delete
     fun delete(car: CarPhotoInDatabase)
@@ -30,5 +31,11 @@ interface CarPhotoDatabaseDao {
 
     @Query("DELETE FROM cars_photo_history")
     suspend fun deleteAll()
+
+    @Query("SELECT * FROM cars_photo_history ORDER BY UID DESC LIMIT 1")
+    fun getLatest(): LiveData<List<CarPhotoInDatabase>>
+
+//    @Query("SELECT * FROM cars_photo_history where UID = <recordId> ")
+//    fun getLatest(): LiveData<List<CarPhotoInDatabase>>
 
 }
