@@ -46,13 +46,26 @@ class HistoryFragment : Fragment(), View.OnClickListener {
         val adapter = ItemListAdapter(requireContext())
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
+        binding.recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                RecyclerView.VERTICAL
+            )
+        )
 
         appViewModel = ViewModelProvider(this).get(AppViewModel::class.java)
 
-        appViewModel.allPositions.observe(viewLifecycleOwner,
-            Observer { items -> items?.let { adapter.setItems(it) } })
+        setupObservers()
 
+        appViewModel.getAllCarRecords()
+    }
+
+    private fun setupObservers() {
+        appViewModel.allCarData.observe(viewLifecycleOwner, { items ->
+            items?.let {
+                adapter.setItems(it)
+            }
+        })
     }
 
     override fun onClick(v: View?) {

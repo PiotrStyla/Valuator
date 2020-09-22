@@ -20,7 +20,7 @@ data class CarPhotoInDatabase(
 interface CarPhotoDatabaseDao {
 
     @Query("SELECT * FROM cars_photo_history")
-    fun getAll(): LiveData<List<CarPhotoInDatabase>>
+    suspend fun getAll(): List<CarPhotoInDatabase>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(car: CarPhotoInDatabase): Long
@@ -32,8 +32,8 @@ interface CarPhotoDatabaseDao {
     @Query("DELETE FROM cars_photo_history")
     suspend fun deleteAll()
 
-    @Query("SELECT * FROM cars_photo_history ORDER BY UID DESC LIMIT 1")
-    fun getLatest(): LiveData<List<CarPhotoInDatabase>>
+    @Query("SELECT * FROM cars_photo_history WHERE uid=:id ")
+    suspend fun getById(id: Int): CarPhotoInDatabase
 
 //    @Query("SELECT * FROM cars_photo_history where UID = <recordId> ")
 //    fun getLatest(): LiveData<List<CarPhotoInDatabase>>

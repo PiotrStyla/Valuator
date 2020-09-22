@@ -172,12 +172,10 @@ class MainFragment : Fragment(), View.OnClickListener {
 
                     //Instead of Web Search just open a ValuePageFragment
                     val car = CarPhotoInDatabase(imageUri.path, "${it.mmg.first().makeName} ", it.mmg.first().modelName, it.mmg.first().years)
-                    appViewModel.insert(car)
-
-                    navController.navigate(R.id.action_mainFragment_to_valuePageFragment)
+                    val recordId = appViewModel.insert(car)
 
 
-
+                    navController.navigate(MainFragmentDirections.actionMainFragmentToValuePageFragment(recordId.toInt()))
 
                 } ?: run {
                     showToast("Success, No detections found!")
