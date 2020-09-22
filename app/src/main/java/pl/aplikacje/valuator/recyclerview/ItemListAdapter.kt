@@ -1,9 +1,11 @@
 package pl.aplikacje.valuator.recyclerview
 
 import android.content.Context
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import pl.aplikacje.valuator.R
@@ -24,6 +26,7 @@ class ItemListAdapter internal constructor(context: Context)
         val itemItemView2: TextView = itemView.findViewById(R.id.text_view_2)
         val itemItemView3: TextView = itemView.findViewById(R.id.text_view_3)
         val itemItemView4: TextView = itemView.findViewById(R.id.text_view_4)
+        //val itemImageView: ImageView = itemView.findViewById(R.id.imageView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -37,6 +40,7 @@ class ItemListAdapter internal constructor(context: Context)
         holder.itemItemView2.text = current.model_name
         holder.itemItemView3.text = current.years
         holder.itemItemView4.text = current.savedUri
+        //holder.itemImageView.setImageURI(Uri.parse(current.savedUri))
     }
 
     internal fun setItems(items: List<CarPhotoInDatabase>) {

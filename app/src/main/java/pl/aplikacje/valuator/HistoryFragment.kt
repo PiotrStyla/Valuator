@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -25,7 +24,6 @@ class HistoryFragment : Fragment(), View.OnClickListener {
     private lateinit var appViewModel: AppViewModel
 
     lateinit var navController: NavController
-    lateinit var recyclerView: RecyclerView
     lateinit var adapter: ItemListAdapter
 
 
@@ -43,7 +41,7 @@ class HistoryFragment : Fragment(), View.OnClickListener {
         binding.buttonSettings.setOnClickListener(this)
         binding.cameraNewCaptureButton.setOnClickListener(this)
 
-        val adapter = ItemListAdapter(requireContext())
+        adapter = ItemListAdapter(requireContext()) //room_trial_2 I delivered a new adapter which was empty instead odf the global one: val adapter = ...
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.addItemDecoration(
@@ -55,7 +53,8 @@ class HistoryFragment : Fragment(), View.OnClickListener {
 
         appViewModel = ViewModelProvider(this).get(AppViewModel::class.java)
 
-        setupObservers()
+        setupObservers()  //room_trial_2 introduced here in this version
+                            // to observe allCarData changes in appViewModel
 
         appViewModel.getAllCarRecords()
     }

@@ -20,7 +20,7 @@ data class CarPhotoInDatabase(
 interface CarPhotoDatabaseDao {
 
     @Query("SELECT * FROM cars_photo_history")
-    suspend fun getAll(): List<CarPhotoInDatabase>
+    suspend fun getAll(): List<CarPhotoInDatabase>  //room_trial_2 suspend added
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(car: CarPhotoInDatabase): Long
@@ -32,10 +32,11 @@ interface CarPhotoDatabaseDao {
     @Query("DELETE FROM cars_photo_history")
     suspend fun deleteAll()
 
+    //room_trial_2 WHERE should have been capitalized letters; :id taken from fun getById where
+    //it came from repository and model fr
     @Query("SELECT * FROM cars_photo_history WHERE uid=:id ")
     suspend fun getById(id: Int): CarPhotoInDatabase
 
-//    @Query("SELECT * FROM cars_photo_history where UID = <recordId> ")
-//    fun getLatest(): LiveData<List<CarPhotoInDatabase>>
+
 
 }

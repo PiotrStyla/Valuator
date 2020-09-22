@@ -1,5 +1,6 @@
 package pl.aplikacje.valuator
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
+import kotlinx.android.synthetic.main.fragment_value_page.view.*
+import kotlinx.android.synthetic.main.item_view.view.*
 import pl.aplikacje.valuator.databinding.FragmentValuePageBinding
 import pl.aplikacje.valuator.viewmodel.AppViewModel
 
@@ -49,6 +52,9 @@ class ValuePageFragment : Fragment(), View.OnClickListener {
         appViewModel.latestCarData.observe(viewLifecycleOwner, { item ->
             item?.let {
                 binding.textView.text = it.make_name
+                binding.textView2.text = it.model_name
+                binding.textView3.text = it.years
+                binding.imageView.setImageURI(Uri.parse(it.savedUri))
             }
         })
     }
