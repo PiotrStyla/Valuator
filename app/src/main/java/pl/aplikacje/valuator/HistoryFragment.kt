@@ -43,7 +43,7 @@ class HistoryFragment : Fragment(), View.OnClickListener {
         binding.buttonSettings.setOnClickListener(this)
         binding.cameraNewCaptureButton.setOnClickListener(this)
 
-        val adapter = ItemListAdapter(requireContext())
+        adapter = ItemListAdapter(requireContext())
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.addItemDecoration(
