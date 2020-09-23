@@ -13,9 +13,9 @@
 
         <ImageView
             android:id="@+id/image_view"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/clock"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

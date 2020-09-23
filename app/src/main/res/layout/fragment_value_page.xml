@@ -13,12 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="280dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,7 +24,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:text="TextView"
@@ -42,30 +38,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
         android:text="TextView2"
         android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:text="TextView2"
         android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toTopOf="@+id/camera_new_capture_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView2" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/camera_new_capture_button"
@@ -79,8 +69,7 @@
         android:text="Take a new photo"
         app:layout_constraintBottom_toTopOf="@+id/button_history"
         app:layout_constraintEnd_toEndOf="@id/valuePageLayout"
-        app:layout_constraintStart_toStartOf="@id/valuePageLayout"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintStart_toStartOf="@id/valuePageLayout" />
 
     <Button
         android:id="@+id/button_settings"
@@ -92,9 +81,10 @@
         android:background="@color/colorButtonBackground"
         android:elevation="2dp"
         android:text="SETTINGS"
-        app:layout_constraintBottom_toBottomOf="@id/valuePageLayout"
-        app:layout_constraintStart_toStartOf="@id/valuePageLayout"
-        app:layout_constraintTop_toBottomOf="@+id/camera_new_capture_button" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/camera_new_capture_button"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/button_history"
@@ -105,8 +95,7 @@
         android:background="@color/colorButtonBackground"
         android:elevation="2dp"
         android:text="HISTORY"
-        app:layout_constraintBottom_toBottomOf="@id/valuePageLayout"
-        app:layout_constraintEnd_toEndOf="@id/valuePageLayout"
-        app:layout_constraintTop_toBottomOf="@+id/camera_new_capture_button" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
