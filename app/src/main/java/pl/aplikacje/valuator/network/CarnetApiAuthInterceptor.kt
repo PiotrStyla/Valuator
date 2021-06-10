@@ -10,7 +10,7 @@ import okhttp3.Response
 class CarnetApiAuthInterceptor: Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val newRequest = chain.request().newBuilder()
-            .addHeader("api-key", "f786b979-20c1-49bf-bb4b-0f63f3f859db")
+            .addHeader("", "")
             .build()
         return chain.proceed(newRequest)
     }
